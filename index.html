@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 250px;
+            height: 250px;
+            border: 2px dashed #333;
+            display: inline-block;
+            vertical-align: top;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .product {
+            padding: 8px;
+            margin: 5px;
+            background: lightblue;
+            border: 1px solid #000;
+            cursor: grab;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3>Box 1: Products</h3>
+    <div id="box1" class="box">
+        <div class="product" draggable="true" data-name="iPhone 15">iPhone 15</div>
+        <div class="product" draggable="true" data-name="MacBook Pro">MacBook Pro</div>
+        <div class="product" draggable="true" data-name="AirPods">AirPods</div>
+    </div>
+
+    <h3>Box 2: Drop here</h3>
+    <div id="box2" class="box"></div>
+
+    <script>
+        const products = document.querySelectorAll(".product");
+        const box2 = document.getElementById("box2");
+
+        products.forEach(prod => {
+            prod.addEventListener("dragstart", (e) => {
+                e.dataTransfer.setData("text/plain", prod.dataset.name);
+            });
+        });
+
+        box2.addEventListener("dragover", (e) => {
+            e.preventDefault();
+        });
+
+        box2.addEventListener("drop", (e) => {
+            e.preventDefault();
+            const productName = e.dataTransfer.getData("text/plain");
+            alert("Mahsulot qo‘shildi: " + productName);
+        });
+    </script>
+</body>
+
+</html>
